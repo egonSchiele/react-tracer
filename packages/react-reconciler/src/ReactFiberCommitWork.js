@@ -211,6 +211,7 @@ import {
 } from './ReactFiberTracingMarkerComponent';
 import {scheduleUpdateOnFiber} from './ReactFiberWorkLoop';
 import {enqueueConcurrentRenderForLane} from './ReactFiberConcurrentUpdates';
+import {rtLogger} from '../../react-dom/src/RTLogger';
 
 let didWarnAboutUndefinedSnapshotBeforeUpdate: Set<mixed> | null = null;
 if (__DEV__) {
@@ -358,6 +359,7 @@ function safelyCallDestroy(
   destroy: () => void,
 ) {
   try {
+    rtLogger.log('safelyCallDestroy: ', current.tag);
     destroy();
   } catch (error) {
     captureCommitPhaseError(current, nearestMountedAncestor, error);

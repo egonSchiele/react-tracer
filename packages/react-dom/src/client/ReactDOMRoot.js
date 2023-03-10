@@ -24,7 +24,7 @@ import {
   allowConcurrentByDefault,
   disableCommentsAsDOMContainers,
 } from 'shared/ReactFeatureFlags';
-
+import {rtLogger} from '../RTLogger';
 export type RootType = {
   render(children: ReactNodeList): void,
   unmount(): void,
@@ -52,7 +52,6 @@ export type HydrateRootOptions = {
   unstable_transitionCallbacks?: TransitionTracingCallbacks,
   identifierPrefix?: string,
   onRecoverableError?: (error: mixed) => void,
-  ...
 };
 
 import {
@@ -283,6 +282,7 @@ export function hydrateRoot(
     throw new Error('hydrateRoot(...): Target container is not a DOM element.');
   }
 
+  rtLogger.log('hydrateRoot');
   warnIfReactDOMContainerInDEV(container);
 
   if (__DEV__) {
